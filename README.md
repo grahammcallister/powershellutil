@@ -2,8 +2,6 @@
 Powershell snippets
 
 ## Send email
-{
-
     function sendMail($sendTo, $subject, $body) {
 
         Write-Host "Sending Email"
@@ -30,4 +28,3 @@ Powershell snippets
         Write-Host "Email sent: " + $users
     }
 
-}
