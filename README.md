@@ -191,3 +191,26 @@ Powershell snippets
 		Toggle-Authentication $websiteName $NTLM $true
 
 		Add-Binding $websiteName "http" "*" "localhost" "80"
+
+## Active Directory
+
+		# User Admin Powershell Snippet
+		# What groups does a user have in AD?
+
+		$strName = "USERNAME"
+		$domain = "DOMAIN"
+
+		$strFilter = "(&(objectCategory=User)(samAccountName=$strName))"
+
+		$objSearcher = New-Object System.DirectoryServices.DirectorySearcher
+		$objSearcher.Filter = $strFilter
+
+		$objPath = $objSearcher.FindOne()
+		$objUser = $objPath.GetDirectoryEntry()
+
+		"Group Memberships: " + $objUser.memberOf
+		"Account locked check: " + $objUser.isAccountLocked
+
+		$objUser = New-Object System.Security.Principal.NTAccount("$domain\$strName")
+		$strSID = $objUser.Translate([System.Security.Principal.SecurityIdentifier])
+		"SID: " + $strSID.Value
